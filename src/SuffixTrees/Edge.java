@@ -1,6 +1,7 @@
 package SuffixTrees;
 
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,15 +15,15 @@ public class Edge<I extends Character, S extends Iterable<I>> implements Iterabl
     private final int start;
     private int end = -1;
     private final Node<I, S> parentNode;
-    private final String sequence;
+    private final List<Character> seq;
 
     private Node<I, S> terminal = null;
     private SuffixTree<I, S> sTree = null;
 
-    protected Edge(int start, Node<I, S> parent, String sequence, SuffixTree<I, S> sTree) {
+    protected Edge(int start, Node<I, S> parent, List<Character> sequence, SuffixTree<I, S> sTree) {
         this.start = start;
         this.parentNode = parent;
-        this.sequence = sequence;
+        this.seq = sequence;
         this.sTree = sTree;
     }
 
@@ -43,10 +44,10 @@ public class Edge<I extends Character, S extends Iterable<I>> implements Iterabl
             @SuppressWarnings("unchecked")
             public I next() {
                 if (end == -1)
-                    hasNext = sequence.charAt(currentPosition) == '$';
+                    hasNext = seq.get(currentPosition).equals('$');
                 else
                     hasNext = currentPosition < getEnd() - 1;
-                return (I) Character.valueOf(sequence.charAt(currentPosition++));
+                return (I) seq.get(currentPosition++);
             }
 
             public void remove() {

@@ -112,15 +112,19 @@ public class SuffixTree {
     }
 
     public int printDistinctSubstrings(int x) {
-        StringBuilder sb = new StringBuilder();
         if (x != aPoint.root) {                                             // the result is the sum of all edges' length
 
         }
         for (int node : aPoint.nodes[x].next)
             if (node > 0) {
-                System.out.print((char) (aPoint.edges[node] + 'a'));
+                for (int i = aPoint.nodes[node].start; i < aPoint.nodes[node].edgeLength() + aPoint.nodes[node].start; i++) {
+                    System.out.print((char) (aPoint.edges[i] + 'a'));
+                }
+                System.out.print("-");
+                //System.out.println((char) (aPoint.edges[node] + 'a'));
+                printDistinctSubstrings(node);
+                System.out.println();
             }
-        System.out.println(sb.toString());
         return 0;
     }
 

@@ -8,8 +8,10 @@ public class project {
 
     public static void main(String[] args) {
 
-        SuffixTree ST;
         int r;
+        boolean isCapital;
+
+        SuffixTree ST;
         ArrayList<Character> input = new ArrayList<>();
 
         try (
@@ -30,8 +32,9 @@ public class project {
                         for (Character c : input) {
                             ST.addChar(c);                                          // build char by char
                         }
-                        System.out.println(ST.countDistinctSubstrings(ST.getRoot()));
-                        ST.printDistinctSubstrings(ST.getRoot());
+                        isCapital = input.get(0) <= 'Z';
+                        ST.printOrderedString(ST.getRoot(), input.size() / 2 - 1, isCapital);
+                        System.out.println();
                         input.clear();
                     }
                 }

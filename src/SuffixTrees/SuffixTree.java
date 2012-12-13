@@ -9,6 +9,7 @@ package SuffixTrees;
  */
 public class SuffixTree {
 
+    int counter = 0;
     final int ALPHABET_SIZE = 26;
     public int position = -1,                                              // position of the last added character
             currentNode = -1,                                           // index of the last added node
@@ -101,29 +102,20 @@ public class SuffixTree {
         }
     }
 
-    public int countDistinctSubstrings(int x) {                     // the function that counts the number of
-        int res = 0;                                                // distinct substrings.
-        if (x != aPoint.root)                                              // the result is the sum of all edges' length
-            res += aPoint.nodes[x].edgeLength();
-        for (int node : aPoint.nodes[x].next)
-            if (node > 0)
-                res += countDistinctSubstrings(node);
-        return res;
-    }
+    public int printOrderedString(int start, int length, boolean isCapital) {
 
-    public int printDistinctSubstrings(int x) {
-        if (x != aPoint.root) {                                             // the result is the sum of all edges' length
-
-        }
-        for (int node : aPoint.nodes[x].next)
-            if (node > 0) {
-                for (int i = aPoint.nodes[node].start; i < aPoint.nodes[node].edgeLength() + aPoint.nodes[node].start; i++) {
-                    System.out.print((char) (aPoint.edges[i] + 'a'));
+        char converter = isCapital ? 'A' : 'a';                             // check if the input was originally capitalized
+        for (int node : aPoint.nodes[start].next)                           // for each possible node connected to this one
+            if (node > 0) {                                                 // if it exists
+                for (int i = aPoint.nodes[node].start;                      // then check the edge connecting the two
+                     i < aPoint.nodes[node].edgeLength() + aPoint.nodes[node].start;
+                     i++, counter++) {
+                    if (counter > length) {                                 // we reached the end of our circular string
+                        return 0;                                           // so we end the function
+                    }
+                    System.out.print((char) (aPoint.edges[i] + converter)); // print each individual character
                 }
-                System.out.print("-");
-                //System.out.println((char) (aPoint.edges[node] + 'a'));
-                printDistinctSubstrings(node);
-                System.out.println();
+                printOrderedString(node, length, isCapital);           // depth-first search, alphabetically
             }
         return 0;
     }

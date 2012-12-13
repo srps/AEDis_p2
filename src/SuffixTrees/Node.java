@@ -18,9 +18,6 @@ public class Node {
             link = -1;
     int[] next = new int[ALPHABET_SIZE];
 
-    public Node() {
-    }
-
     public Node(int start, SuffixTree tree) {
         this.start = start;
         this.tree = tree;

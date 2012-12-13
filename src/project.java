@@ -24,12 +24,14 @@ public class project {
                         if (input.get(0) == '$') {
                             break;
                         }
-                        input.remove(input.size() - 1);
-                        ST = new SuffixTree(input.size());
+                        input.remove(input.size() - 1);                             // remove the money
+                        input.addAll(input);                                        // duplicate the input
+                        ST = new SuffixTree(input.size());                          // create the stub tree
                         for (Character c : input) {
-                            ST.addChar(c);
+                            ST.addChar(c);                                          // build char by char
                         }
-                        System.out.println(ST.countDistinctSubstrings(ST.root));
+                        System.out.println(ST.countDistinctSubstrings(ST.getRoot()));
+                        ST.printDistinctSubstrings(ST.getRoot());
                         input.clear();
                     }
                 }

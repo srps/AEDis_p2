@@ -24,9 +24,6 @@ public class Node {
     public Node(int start, SuffixTree tree) {
         this.start = start;
         this.tree = tree;
-        if (tree == null) {
-            System.out.println("wee");
-        }
     }
 
     public Node(int start, int end, SuffixTree tree) {

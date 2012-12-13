@@ -1,10 +1,5 @@
 package SuffixTrees;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Sergio
@@ -12,22 +7,35 @@ import java.util.Map;
  * Time: 15:23
  * To change this template use File | Settings | File Templates.
  */
-public class Node<I extends Character, S extends Iterable<I>> implements Iterable<Edge<I, S>> {
+public class Node {
 
-    private final Map<I, Edge<I, S>> edges = new HashMap<>();
-    private final Edge<I, S> parentEdge;
-    private final List<Character> seq;
-    private final SuffixTree<I, S> sTree;
-    private Node<I, S> sLink = null;
+    final int oo = Integer.MAX_VALUE / 2;
+    final int ALPHABET_SIZE = 26;
 
-    protected Node(Edge<I, S> parentEdge, List<Character> sequence, SuffixTree<I, S> suffixTree) {
-        this.parentEdge = parentEdge;
-        this.seq = sequence;
-        this.sTree = suffixTree;
+    private SuffixTree tree;
+    int start = -1,
+            end = oo,
+            link = -1;
+    int[] next = new int[ALPHABET_SIZE];
+
+    public Node() {
     }
 
-    public Iterator<Edge<I, S>> iterator() {
-        return edges.values().iterator();
+    public Node(int start, SuffixTree tree) {
+        this.start = start;
+        this.tree = tree;
+        if (tree == null) {
+            System.out.println("wee");
+        }
     }
 
+    public Node(int start, int end, SuffixTree tree) {
+        this.start = start;
+        this.end = end;
+        this.tree = tree;
+    }
+
+    public int edgeLength() {
+        return Math.min(end, tree.position + 1) - start;
+    }
 }

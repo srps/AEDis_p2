@@ -7,7 +7,7 @@ package SuffixTrees;
  * Time: 15:25
  * To change this template use File | Settings | File Templates.
  */
-public class ActivePoint<I extends Character, S extends Iterable<I>> {
+public class ActivePoint<I extends Character, S extends Iterable<I>> {  /*
 
     private final Node<I, S> root;
     private Node<I, S> activeNode;
@@ -31,6 +31,6 @@ public class ActivePoint<I extends Character, S extends Iterable<I>> {
 
     protected int getActiveLength() {
         return activeLength;
-    }
+    } */
 
 }

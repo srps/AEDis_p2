@@ -1,6 +1,6 @@
 package SuffixTrees;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +12,7 @@ import java.util.List;
 public class SuffixTree<I extends Character, S extends Iterable<I>> {
 
     private final Node<I, S> root;
-    private final List<Character> seq;
+    private final ArrayList<Character> seq;
     private final ActivePoint<I, S> aPoint;
 
     private Node<I, S> lastNode;
@@ -22,7 +22,7 @@ public class SuffixTree<I extends Character, S extends Iterable<I>> {
     private int currentEnd;
 
 
-    public SuffixTree(List<Character> S) {
+    public SuffixTree(ArrayList<Character> S) {
 
         this.seq = S;
         this.root = new Node<>(null, this.seq, this);

@@ -117,9 +117,9 @@ public class SuffixTree {
 
         }
         for (int node : aPoint.nodes[x].next)
-            if (node > 0)
-                for (char c : aPoint.edges)
-                    sb.append(c);
+            if (node > 0) {
+                System.out.print((char) (aPoint.edges[node] + 'a'));
+            }
         System.out.println(sb.toString());
         return 0;
     }

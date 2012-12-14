@@ -1,12 +1,12 @@
 package SuffixTrees;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Sergio
+ * User: Sergio Silva   - 55457
+ * User: Marco Ferreira - 56886
  * Date: 10-12-2012
- * Time: 15:23
- * To change this template use File | Settings | File Templates.
+ * Time: 15:25
  */
+
 public class Node {
 
     final int oo = Integer.MAX_VALUE / 2;

@@ -1,30 +1,50 @@
 package SuffixTrees;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Sergio
+ * User: Sergio Silva   - 55457
+ * User: Marco Ferreira - 56886
  * Date: 10-12-2012
  * Time: 15:25
- * To change this template use File | Settings | File Templates.
  */
+
 public class ActivePoint {
 
     // TODO : repair ActivePoint logically, take illogical vars out
-    protected int root;             // repor em SuffixTree
-    protected int pseudoRoot;       // repor em SuffixTree
-    protected Node[] nodes;         // repor em SuffixTree
-    protected char[] edges;         // repor em SuffixTree e renomear para charMap
-    protected int activeNode = 0;   // mudar para Node aNode
-    protected int activeEdge = 0;   // mudar para char aEdge
-    protected int activeLength = 0;
+    private int aNodePointer = 0;   // mudar para Node aNode
+    private int aEdgePointer = 0;   // mudar para char aEdge
+    private int activeLength = 0;
+    private SuffixTree suffixTree;
 
-    protected ActivePoint(Node root, char activeEdge) {
-        //this.aNode = root;
-        //this.aEdge = activeEdge;
-        this.activeLength = 0;
+    protected ActivePoint(SuffixTree sTree) {
+        this.suffixTree = sTree;
     }
 
-    protected ActivePoint() {
+    protected void setNodePointer(int value) {
+        aNodePointer = value;
+    }
+
+    protected void setEdgePointer(int value) {
+        aEdgePointer = value;
+    }
+
+    protected void setActiveLength(int value) {
+        activeLength = value;
+    }
+
+    protected int getNodePointer() {
+        return aNodePointer;
+    }
+
+    protected int getEdgePointer() {
+        return aEdgePointer;
+    }
+
+    protected int getActiveLength() {
+        return activeLength;
+    }
+
+    protected char getActiveEdge() {
+        return suffixTree.edgeMap[aEdgePointer];
     }
 
 

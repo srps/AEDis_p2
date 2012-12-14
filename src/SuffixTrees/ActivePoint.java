@@ -9,10 +9,10 @@ package SuffixTrees;
 
 class ActivePoint {
 
-    private int aNodePointer = 0;
-    private int aEdgePointer = 0;
-    private int activeLength = 0;
-    private final SuffixTree suffixTree;
+    private int aNodePointer = 0;           // activeNode pointer
+    private int aEdgePointer = 0;           // activeEdge pointer
+    private int activeLength = 0;           // activeLength
+    private final SuffixTree suffixTree;    // this suffix tree associated
 
     ActivePoint(SuffixTree sTree) {
         this.suffixTree = sTree;

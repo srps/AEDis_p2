@@ -2,7 +2,6 @@ import SuffixTrees.SuffixTree;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.BitSet;
 
@@ -15,45 +14,40 @@ import java.util.BitSet;
 
 public class project {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
-        long startTime = System.nanoTime();
-        int r;
-        BitSet capitals;
+        int r;                                                                      // aux for reading
+        BitSet capitals;                                                            // capital checker
 
         SuffixTree ST;
-        ArrayList<Character> input = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        for (String s : args) {
-            sb.append(s);
-        }
+        ArrayList<Character> input = new ArrayList<>();                             // to keep the sentences
 
         try (
                 InputStreamReader isr = new InputStreamReader(System.in);
-                BufferedReader in = new BufferedReader(new StringReader(sb.toString()))) {
+                BufferedReader in = new BufferedReader(isr)) {
 
-            while ((r = in.read()) != -1) {
+            while ((r = in.read()) != -1) {                                         // while there's input to be read
 
-                if ((r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z') || r == '$') {
+                if ((r >= 'A' && r <= 'Z') || (r >= 'a' && r <= 'z') || r == '$') { // only get valid characters
                     input.add((char) r);
-                    if (input.get(input.size() - 1) == '$') {
-                        if (input.get(0) == '$') {
-                            break;
+                    if (input.get(input.size() - 1) == '$') {                       // sentence or input end reached
+                        if (input.get(0) == '$') {                                  // if we catch a second dollar
+                            break;                                                  // we reached input end
                         }
                         input.remove(input.size() - 1);                             // remove the money
                         input.addAll(input);                                        // duplicate the input
                         ST = new SuffixTree(input.size());                          // create the stub tree
                         capitals = new BitSet(input.size());
-                        int setIndex = 0;
+                        int setIndex = 0;                                           // setting BitSet index
                         for (Character c : input) {
-                            ST.insertCharTree(c);                                          // build char by char
-                            if (c <= 'Z') {
-                                capitals.set(setIndex);
+                            ST.insertCharTree(c);                                   // build char by char
+                            if (c <= 'Z') {                                         // if it's capital
+                                capitals.set(setIndex);                             // remind the printer so
                             }
                             setIndex++;
                         }
-                        ST.printOrderedString(ST.getRoot(), input.size() / 2 - 1, capitals);
-                        System.out.println();
+                        ST.printOrderedString(ST.getRoot(), input.size() / 2 - 1, capitals); // print results
+                        System.out.println();                                                // and a newline
                         input.clear();
                     }
                 }
@@ -61,6 +55,5 @@ public class project {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Execution time: " + (System.nanoTime() - startTime) / 1000000.0 + "ms");
     }
 }

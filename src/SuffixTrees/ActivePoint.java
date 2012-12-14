@@ -7,42 +7,42 @@ package SuffixTrees;
  * Time: 15:25
  */
 
-public class ActivePoint {
+class ActivePoint {
 
     private int aNodePointer = 0;
     private int aEdgePointer = 0;
     private int activeLength = 0;
-    private SuffixTree suffixTree;
+    private final SuffixTree suffixTree;
 
-    protected ActivePoint(SuffixTree sTree) {
+    ActivePoint(SuffixTree sTree) {
         this.suffixTree = sTree;
     }
 
-    protected void setNodePointer(int value) {
+    void setNodePointer(int value) {
         aNodePointer = value;
     }
 
-    protected void setEdgePointer(int value) {
+    void setEdgePointer(int value) {
         aEdgePointer = value;
     }
 
-    protected void setActiveLength(int value) {
+    void setActiveLength(int value) {
         activeLength = value;
     }
 
-    protected int getNodePointer() {
+    int getNodePointer() {
         return aNodePointer;
     }
 
-    protected int getEdgePointer() {
+    int getEdgePointer() {
         return aEdgePointer;
     }
 
-    protected int getActiveLength() {
+    int getActiveLength() {
         return activeLength;
     }
 
-    protected char getActiveEdge() {
+    char getActiveEdge() {
         return suffixTree.edgeMap[aEdgePointer];
     }
 

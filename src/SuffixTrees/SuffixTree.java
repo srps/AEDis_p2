@@ -10,16 +10,16 @@ import java.util.BitSet;
  */
 
 public class SuffixTree {
-    protected int root;
-    protected Node[] nodes;
-    protected char[] edgeMap;
-    int counter = 0;
-    public int position = -1,                                           // position of  last added character
-            currentNode = -1,                                           // index of  last added node
-            needSuffixLink = -1,                                        //  node where suffix will be added
-            remainder = 0;
+    private final int root;
+    private final Node[] nodes;
+    final char[] edgeMap;
+    private int counter = 0;
+    public int position = -1;                                           // position of  last added character
+    private int currentNode = -1;                                           // index of  last added node
+    private int needSuffixLink = -1;                                        //  node where suffix will be added
+    private int remainder = 0;
 
-    ActivePoint aPoint;                                                 // active point representation
+    private final ActivePoint aPoint;                                                 // active point representation
 
     public SuffixTree(int length) {
         nodes = new Node[2 * length + 2];
@@ -60,7 +60,7 @@ public class SuffixTree {
         return currentNode;
     }
 
-    public void insertCharTree(char c) throws Exception {
+    public void insertCharTree(char c) {
         c -= (c >= 'a') ? 'a' : 'A';
         edgeMap[++position] = c;
         // at the beginning of each step
@@ -94,7 +94,7 @@ public class SuffixTree {
             remainder--;                                            //  decrement remainder
 
             /*
-                After insertion, if we're at root -> decremente activeLength and set edge pointer to next suffix,
+                After insertion, if we're at root -> decrement activeLength and set edge pointer to next suffix,
                 otherwise go to suffix link (or root)
             */
             if (getNodePointer() == root && getActiveLength() > 0) {
@@ -107,23 +107,22 @@ public class SuffixTree {
         }
     }
 
-    public int printOrderedString(int start, int length, BitSet capitals) {
+    public void printOrderedString(int start, int length, BitSet capitals) {
 
-        char converter;                             // check if the input was originally capitalized
+        char converter;
         for (int node : nodes[start].next)                                  // for each possible node connected to this one
             if (node > 0) {                                                 // if it exists
                 for (int i = nodes[node].start;                             // then check the edge connecting the two
                      i < nodes[node].end;
                      i++, counter++) {
                     if (counter > length) {                                 // we reached the end of our circular string
-                        return 0;                                           // so we end the function
+                        return;                                             // so we end the function
                     }
-                    converter = capitals.get(counter) ? 'A' : 'a';
+                    converter = capitals.get(counter) ? 'A' : 'a';          // check if the input was originally capitalized
                     System.out.print((char) (edgeMap[i] + converter));      // print each individual character
                 }
-                printOrderedString(node, length, capitals);                // depth-first search, alphabetically
+                printOrderedString(node, length, capitals);                 // depth-first search, alphabetically
             }
-        return 0;
     }
 
     char getActiveEdge() {

@@ -2,6 +2,7 @@ import SuffixTrees.SuffixTree;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.BitSet;
 
@@ -16,15 +17,20 @@ public class project {
 
     public static void main(String[] args) {
 
+        long startTime = System.nanoTime();
         int r;
         BitSet capitals;
 
         SuffixTree ST;
         ArrayList<Character> input = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for (String s : args) {
+            sb.append(s);
+        }
 
         try (
                 InputStreamReader isr = new InputStreamReader(System.in);
-                BufferedReader in = new BufferedReader(isr)) {
+                BufferedReader in = new BufferedReader(new StringReader(sb.toString()))) {
 
             while ((r = in.read()) != -1) {
 
@@ -55,5 +61,6 @@ public class project {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Execution time: " + (System.nanoTime() - startTime) / 1000000.0 + "ms");
     }
 }

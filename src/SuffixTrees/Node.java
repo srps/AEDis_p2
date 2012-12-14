@@ -9,14 +9,14 @@ package SuffixTrees;
 
 public class Node {
 
-    final int oo = Integer.MAX_VALUE / 2;
-    final int ALPHABET_SIZE = 26;
+    private final int oo = Integer.MAX_VALUE / 2;
+    private final int ALPHABET_SIZE = 26;
 
-    private SuffixTree tree;
+    private final SuffixTree tree;
     int start = -1,
             end = oo,
             link = -1;
-    int[] next = new int[ALPHABET_SIZE];
+    final int[] next = new int[ALPHABET_SIZE];
 
     public Node(int start, SuffixTree tree) {
         this.start = start;

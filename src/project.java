@@ -40,7 +40,7 @@ public class project {
                         capitals = new BitSet(input.size());
                         int setIndex = 0;
                         for (Character c : input) {
-                            ST.addChar(c);                                          // build char by char
+                            ST.insertCharTree(c);                                          // build char by char
                             if (c <= 'Z') {
                                 capitals.set(setIndex);
                             }

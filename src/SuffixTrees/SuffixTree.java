@@ -14,9 +14,9 @@ public class SuffixTree {
     protected Node[] nodes;
     protected char[] edgeMap;
     int counter = 0;
-    public int position = -1,                                           // position of the last added character
-            currentNode = -1,                                           // index of the last added node
-            needSuffixLink = -1,                                        // the node to which a suffix link will be added
+    public int position = -1,                                           // position of  last added character
+            currentNode = -1,                                           // index of  last added node
+            needSuffixLink = -1,                                        //  node where suffix will be added
             remainder = 0;
 
     ActivePoint aPoint;                                                 // active point representation
@@ -35,8 +35,13 @@ public class SuffixTree {
         needSuffixLink = node;
     }
 
-    boolean compareNextNode(int next) {
-        if (getActiveLength() >= nodes[next].edgeLength()) {                // if length of the edge <= active_length
+    /*
+        Verifica se é necessário ir ao proximo nó
+        Se precisar avança o edgePointer, diminui o activeLength
+        e coloca o nó a apontar para ele
+     */
+    boolean walkDown(int next) {
+        if (getActiveLength() >= nodes[next].edgeLength()) {
             setEdgePointer(getEdgePointer() + nodes[next].edgeLength());
             setActiveLength(getActiveLength() - nodes[next].edgeLength());
             setNodePointer(next);
@@ -55,28 +60,28 @@ public class SuffixTree {
         return currentNode;
     }
 
-    public void addChar(char c) throws Exception {
+    public void insertCharTree(char c) throws Exception {
         c -= (c >= 'a') ? 'a' : 'A';
         edgeMap[++position] = c;
         // at the beginning of each step
         needSuffixLink = -1;                                                    // reset needSuffixLink
-        remainder++;                                                            // and increase remainder
+        remainder++;                                                            // increase remainder
         while (remainder > 0) {
             if (getActiveLength() == 0) setEdgePointer(position);
             if (nodes[getNodePointer()].next[getActiveEdge()] == 0) {           // there is no edge starting with active_edge
-                int leaf = createNode(position);                                       // adding a leaf node to active_node
+                int leaf = createNode(position);                                       // add a leaf node to active_node
                 nodes[getNodePointer()].next[getActiveEdge()] = leaf;
                 addSuffixLink(getNodePointer());
             } else {                                                            // there is an edge starting with active_edge
                 int next = nodes[getNodePointer()].next[getActiveEdge()];
-                if (compareNextNode(next)) {
-                    continue;                                                   // compare next node if active_length >= (edge length)
+                if (walkDown(next)) {
+                    continue;                                                   // walkDown if active_length >= (edge length)
                 }
-                if (edgeMap[nodes[next].start + getActiveLength()] == c) {      // character c is somewhere on the edge
+                if (edgeMap[nodes[next].start + getActiveLength()] == c) {      // character c is on the edge
                     addSuffixLink(getNodePointer());
                     setActiveLength(getActiveLength() + 1);
-                    break;                                                       // do nothing, finish the step
-                }                                                                // creating a split-node in the middle of the edge
+                    break;
+                }
                 int split = createNode(nodes[next].start, nodes[next].start + getActiveLength()); // split node
                 nodes[getNodePointer()].next[getActiveEdge()] = split;
                 int leaf = createNode(position);                                 // node with single character on edge
@@ -86,12 +91,16 @@ public class SuffixTree {
                 addSuffixLink(split);
             }
 
-            remainder--;                                            // an insert took place - decrement remainder
+            remainder--;                                            //  decrement remainder
 
-            if (getNodePointer() == root && getActiveLength() > 0) { // after insertion, if we're at the root -
-                setActiveLength(getActiveLength() - 1);               // decrement active_Length
-                setEdgePointer(position - remainder + 1);           // and set active_edge to next_suffix_to_add[0]
-            } else {                                                // otherwise - go to the suffix link (or root)
+            /*
+                After insertion, if we're at root -> decremente activeLength and set edge pointer to next suffix,
+                otherwise go to suffix link (or root)
+            */
+            if (getNodePointer() == root && getActiveLength() > 0) {
+                setActiveLength(getActiveLength() - 1);
+                setEdgePointer(position - remainder + 1);
+            } else {
                 setNodePointer(nodes[getNodePointer()].link > 0 ? nodes[getNodePointer()].link : root);
             }
 

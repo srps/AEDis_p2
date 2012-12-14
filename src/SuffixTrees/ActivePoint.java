@@ -9,9 +9,8 @@ package SuffixTrees;
 
 public class ActivePoint {
 
-    // TODO : repair ActivePoint logically, take illogical vars out
-    private int aNodePointer = 0;   // mudar para Node aNode
-    private int aEdgePointer = 0;   // mudar para char aEdge
+    private int aNodePointer = 0;
+    private int aEdgePointer = 0;
     private int activeLength = 0;
     private SuffixTree suffixTree;
 
